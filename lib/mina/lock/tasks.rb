@@ -1,7 +1,5 @@
 require 'mina/bundler'
 
-set_default :lock_full_cmd, -> { %[cd #{deploy_to}/#{current_path}]}
-
 namespace :lock do
   desc 'Lock deployment'
   task deployment: :environment do
