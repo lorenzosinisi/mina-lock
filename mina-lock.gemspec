@@ -2,16 +2,16 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mina/clockwork/version'
+require 'mina/lock/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'mina-clockwork'
-  spec.version       = Mina::Clockwork::VERSION
-  spec.authors       = ['Alexey Chernenkov']
-  spec.email         = ['laise@pisem.net']
-  spec.summary       = 'Clockwork deployment scenario for mina.'
+  spec.name          = 'mina-lock'
+  spec.version       = Mina::Lock::VERSION
+  spec.authors       = ['Lorenzo Sinisi']
+  spec.email         = ['info@lorenzosinisi.com']
+  spec.summary       = 'Lock the deplyment with mina'
   spec.description   = ''
-  spec.homepage      = 'https://github.com/907th/mina-clockwork'
+  spec.homepage      = 'https://github.com/lorenzosinisi/mina-lock'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -21,7 +21,4 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'
-
-  spec.add_dependency 'clockwork'
-  spec.add_dependency 'daemons'
 end

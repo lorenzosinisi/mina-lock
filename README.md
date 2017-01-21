@@ -1,6 +1,10 @@
-# Mina Clockwork
+# Mina Lock
 
-Clockwork deployment scenario for mina. It uses `clockworkd` to start clockwork daemon.
+Lock the deployment of your app using mina.
+
+Quite often I found myself in need to ask other developers to not deploy a specific app for some time. Usually I have used slack or other chat channels for that purpose but it is not efficient and you need to read updates from the channel in order to know if it is 'ok' to deploy or not. 
+
+This gems adds 2 task to manually 'lock' and 'unlock' the deployment of mina creating a file called 'deployment.lock' that should be checked before each deployment, using the task 'fail:when_locked'.
 
 ## Installation
 
@@ -8,33 +12,24 @@ Via Bundler:
 
 ```ruby
 # Gemfile
-gem 'mina-clockwork', require: false
+gem 'mina-lock', require: false
 ```
 
-PS: You will need the `daemons` gem to use `clockworkd`, be sure that `daemons`
-is available in the deployed environment!
 
 ## Usage example
 
 ```ruby
 # config/deploy.rb
 
-require 'mina/clockwork'
+require 'mina/lock'
 
-set :clockwork_file, -> { "#{deploy_to}/#{current_path}/app/clockwork.rb" }
-set :clockwork_identifier, -> { rails_env }
 ... other options
 
 task deploy: :environment do
   deploy do
-    invoke 'clockwork:stop'
+    invoke 'fail:when_locked' # should be the first thing you want to check
     invoke 'git:clone'
     ...
-
-    to :launch do
-      ...
-      invoke 'clockwork:start'
-    end
   end
 end
 ```
@@ -42,18 +37,9 @@ end
 ## Tasks
 
 ```
-mina clockwork:restart  # Restart clockworkd
-mina clockwork:start    # Start clockworkd
-mina clockwork:stop     # Stop clockworkd
+mina lock:deployment    # Locks the deployment
+mina unlock:deployment  # Unlocks the deployment
 ```
-
-## Configuration
-
-* `clockwork_dir` - Working dir (Default: current deployment path)
-* `clockwork_file` - Clock file (Default: [current deployment path]/clock.rb)
-* `clockwork_identifier` - Identifier for clockworkd process (Default: name of clock file)
-* `clockwork_pid_dir` - Dir for pid file (Default: [shared path]/tmp/pids)
-* `clockwork_log_dir` - Dir for log files (Default: [shared path]/log)
 
 ## Contributing
 

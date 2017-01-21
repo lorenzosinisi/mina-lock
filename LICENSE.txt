@@ -1,4 +1,4 @@
-Copyright (c) 2014 Alexey Chernenkov
+Copyright (c) 2017 Lorenzo Sinisi
 
 MIT License
 
