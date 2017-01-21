@@ -24,7 +24,7 @@ namespace :fail do
       FILE=#{deploy_to}/#{current_path}/deployment.lock
       if [ -f "$FILE" ];
       then
-         echo "The deployment of this project is currently locked. File $FILE exist."
+         echo "The deployment of this project is currently locked. File $FILE exist. Run mina unlock:deployment"
          exit 17
       fi
     ]
