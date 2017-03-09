@@ -1,10 +1,12 @@
 require 'mina/bundler'
 
+set :lock_user, ENV['USER']
+
 namespace :lock do
   desc 'Lock deployment'
   task deployment: :environment do
     queue %[echo '-----> Locking deployment (manually)']
-    queue! "touch #{deploy_to}/#{current_path}/deployment.lock"
+    queue! "echo \"#{lock_user}\n$(date)\" > #{deploy_to}/#{current_path}/deployment.lock"
   end
 end
 
@@ -24,7 +26,9 @@ namespace :fail do
       FILE=#{deploy_to}/#{current_path}/deployment.lock
       if [ -f "$FILE" ];
       then
-         echo "The deployment of this project is currently locked. File $FILE exist. Run mina unlock:deployment"
+         LOCKED_BY = $(sed '1q;d' $FILE)
+         LOCKED_AT = $(sed '2q;d' $FILE)
+         echo "The deployment of this project is currently locked by $LOCKED_BY at $LOCKED_AT. File $FILE exist. Run mina unlock:deployment"
          exit 17
       fi
     ]
