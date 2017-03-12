@@ -41,10 +41,6 @@ mina lock:deployment    # Locks the deployment
 mina unlock:deployment  # Unlocks the deployment
 ```
 
-## TODOs
-
-- write in the lock file the name of the user who locked the deployment (reading it from the context)
-
 ## Contributing
 
 Feel free to contribute!
