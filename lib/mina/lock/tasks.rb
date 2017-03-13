@@ -6,7 +6,7 @@ namespace :lock do
   desc 'Lock deployment'
   task deployment: :environment do
     queue %[echo '-----> Locking deployment (manually)']
-    queue! "echo \"#{lock_user}\n$(date)\" > #{deploy_to}/#{current_path}/deployment.lock"
+    queue! "echo \"The deployment of this project was locked by #{lock_user} at $(date). Run mina unlock:deployment\" > #{deploy_to}/#{current_path}/deployment.lock"
   end
 end
 
@@ -26,9 +26,7 @@ namespace :fail do
       FILE=#{deploy_to}/#{current_path}/deployment.lock
       if [ -f "$FILE" ];
       then
-         LOCKED_BY = $(sed '1q;d' $FILE)
-         LOCKED_AT = $(sed '2q;d' $FILE)
-         echo "The deployment of this project is currently locked by $LOCKED_BY at $LOCKED_AT. File $FILE exist. Run mina unlock:deployment"
+         cat $FILE
          exit 17
       fi
     ]
