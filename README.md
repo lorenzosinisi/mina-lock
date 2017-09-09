@@ -1,10 +1,10 @@
 # Mina Lock
 
-Lock the deployment of your app using mina.
+Manually lock and unlock the deployment of your app when using Mina. Prevent other team members from deploying an application using a custom lockfile.
 
-Quite often I found myself in need to ask other developers to not deploy a specific app for some time. Usually I have used slack or other chat channels for that purpose but it is not efficient and you need to read updates from the channel in order to know if it is 'ok' to deploy or not. 
 
-This gems adds 2 task to manually 'lock' and 'unlock' the deployment of mina creating a file called 'deployment.lock' that should be checked before each deployment, using the task 'fail:when_locked'.
+When the deployment is locked it will make it fail and output something like "The deployment of this project was locked by USERNAME at TIME. Run mina unlock:deployment"
+
 
 ## Installation
 
@@ -34,10 +34,12 @@ task deploy: :environment do
 end
 ```
 
+Adds 2 task to manually 'lock' and 'unlock' the deployment of mina creating a file called 'deployment.lock' that should be checked before each deployment.
+
 ## Tasks
 
 ```
-mina lock:deployment    # Locks the deployment
+mina lock:deployment    # Locks the deployment manually
 mina unlock:deployment  # Unlocks the deployment
 ```
 
