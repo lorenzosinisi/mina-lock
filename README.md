@@ -3,7 +3,7 @@
 Manually lock and unlock the deployment of your app when using Mina. Prevent other team members from deploying an application using a custom lockfile.
 
 
-When the deployment is locked it will make it fail and output something like "The deployment of this project was locked by USERNAME at TIME. Run mina unlock:deployment"
+When the deployment is locked it will make it fail and output something like `The deployment of this project was locked by USERNAME at TIME. Run mina unlock:deployment`
 
 
 ## Installation
